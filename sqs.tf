@@ -1,3 +1,4 @@
+# https://sharmilas.medium.com/creating-an-sqs-queue-using-terraform-a-step-by-step-guide-54f1005dc616
 resource "aws_sqs_queue" "sqs_to_lambda" {
   name                       = "demo_sqs_to_lambda"
   delay_seconds              = 20
