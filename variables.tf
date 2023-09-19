@@ -12,3 +12,14 @@ variable "s3_bucket_landing" {
     output  = "output"
   }
 }
+
+variable "sqs_queue" {
+  description = "External data will be received in input folder"
+  type = object({
+    name    = string
+  })
+
+  default = {
+    name    = "s3-event-notification-queue"
+  }
+}

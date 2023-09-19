@@ -3,5 +3,5 @@ output "s3_landing_bucket_name" {
 }
 
 output "sqs_arn" {
-    value = aws_sqs_queue.sqs_to_lambda.arn
+    value = aws_sqs_queue.queue.arn
 }
