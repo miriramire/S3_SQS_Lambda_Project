@@ -20,8 +20,17 @@ data "aws_iam_policy_document" "queue" {
   }
 }
 
+resource "aws_sqs_queue_policy" "sh_sqs_policy" {
+  queue_url = aws_sqs_queue.queue.id
+  policy    = data.aws_iam_policy_document.sh_sqs_policy.json
+}
+
 resource "aws_sqs_queue" "queue" {
-  name = var.sqs_queue.name
-  policy = data.aws_iam_policy_document.queue.json
+  name                       = var.sqs_queue.name
+  delay_seconds              = 10
+  visibility_timeout_seconds = 30
+  max_message_size           = 2048
+  message_retention_seconds  = 86400
+  receive_wait_time_seconds  = 2
 }
 
