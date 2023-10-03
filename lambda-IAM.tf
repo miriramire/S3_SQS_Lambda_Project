@@ -24,9 +24,7 @@ data "aws_iam_policy_document" "lambda_s3_policy" {
     actions = [ "s3:*" ]
     resources = [ 
         "arn:aws:s3:::${module.s3_bucket_landing.s3_bucket_id}/*",
-        "arn:aws:s3:::${module.s3_bucket_landing.s3_bucket_id}",
-        "arn:aws:s3:::${module.s3_bucket_landing_transformed.s3_bucket_id}/*",
-        "arn:aws:s3:::${module.s3_bucket_landing_transformed.s3_bucket_id}", 
+        "arn:aws:s3:::${module.s3_bucket_landing.s3_bucket_id}", 
     ]
   }
   statement {
