@@ -14,20 +14,21 @@ def calculate_yearly_salary(salary):
 
 def lambda_handler(event, context):
     input_json = list()
-    
-    for record in event['Records']:
+    for event in event['Records']:
         # Getting Bucket name and key
-        bucket = record['s3']['bucket']['name']
-        key = record['s3']['object']['key']
-        
-        # getting content as STR
-        response = s3_client.get_object(Bucket=bucket, Key=key)
-        content = response['Body'].read().decode('utf-8')
-        
-        # Retrieve the JSON data from the Lambda event
-        for data in json.loads(content):
-            data['year_salary'] = calculate_yearly_salary(data.get('salary'))
-            input_json.append(data)
+        record_details = json.loads(event["body"])
+        for record in record_details["Records"]:
+            bucket = record['s3']['bucket']['name']
+            key = record['s3']['object']['key']
+            
+            # getting content as STR
+            response = s3_client.get_object(Bucket=bucket, Key=key)
+            content = response['Body'].read().decode('utf-8')
+            
+            # Retrieve the JSON data from the Lambda event
+            for data in json.loads(content):
+                data['year_salary'] = calculate_yearly_salary(data.get('salary'))
+                input_json.append(data)
 
     # Convert the modified JSON data back to a string
     modified_json_str = json.dumps(input_json)
